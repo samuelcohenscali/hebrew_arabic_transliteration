@@ -23,6 +23,7 @@ def replace_sofits(word, sofits):
         if word.endswith(letter):
             word = word[:-1 * len(letter)]
             word += sofits[letter]
+            break
 
     word += non_letter_suffix
 
