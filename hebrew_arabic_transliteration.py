@@ -30,7 +30,7 @@ def replace_sofits(word, sofits):
     return word
 
 
-def search_and_replace(transformations, words, clusters, sofits):
+def search_and_replace(transformations, words, clusters, sofits, second_pass):
     for i in range(len(words)):
         word = words[i]
 
@@ -47,6 +47,10 @@ def search_and_replace(transformations, words, clusters, sofits):
         for t in transformations:
             word = word.replace(t, transformations[t])
 
+        # Run the "2nd pass" processing.
+        for s in second_pass:
+            word = word.replace(s, second_pass[s])
+
         # If going to Hebrew, we need to sofit the final forms.
         if not HE_TO_AR:
             word = replace_sofits(word, sofits)
@@ -54,7 +58,7 @@ def search_and_replace(transformations, words, clusters, sofits):
     return words
 
 # Wrapper function to split document into words.
-def process_words(document, transformations, clusters, sofits):
+def process_words(document, transformations, clusters, sofits, second_pass):
     lines = document.split('\n')
     processed_lines = [''] * len(lines)
     for i in range(len(lines)):
@@ -73,6 +77,7 @@ def main():
     transformations = translations
     c = clusters
     s = sofit_forms
+    second_pass = second_pass
     document = Path('input.txt').read_text()
 
     if HE_TO_AR:
@@ -82,7 +87,7 @@ def main():
         # Need to even flip the sofit dictionary, so the sofit transformation can be reversed
         s = {sofit_forms[k]: k for k in sofit_forms}
 
-    processed_text = process_words(document, transformations, c, s)
+    processed_text = process_words(document, transformations, c, s, second_pass)
     Path('output.txt').write_text(processed_text)
 
 
