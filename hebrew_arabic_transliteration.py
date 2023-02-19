@@ -65,7 +65,7 @@ def process_words(document, transformations, clusters, sofits, second_pass):
         l = lines[i]
         words = l.split(' ')
         words = search_and_replace(
-            transformations, words, clusters, sofits)
+            transformations, words, clusters, sofits, second_pass)
         processed_lines[i] = ' '.join(words)
 
     return '\n'.join(processed_lines)
@@ -89,6 +89,3 @@ def main():
 
     processed_text = process_words(document, transformations, c, s, second_pass)
     Path('output.txt').write_text(processed_text)
-
-
-main()
