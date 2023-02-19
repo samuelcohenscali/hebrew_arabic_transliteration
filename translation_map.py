@@ -79,4 +79,5 @@ sofit_forms = {
 
 second_pass = {
     " ־": "־",
+   " ַׄ": "ָ"
 }
