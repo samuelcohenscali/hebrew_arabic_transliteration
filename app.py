@@ -19,5 +19,4 @@ def result():
                 clusters,
                 sofit_forms,
                 second_pass)
-
     return render_template('result.html', result=result)
